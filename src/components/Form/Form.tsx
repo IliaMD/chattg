@@ -1,37 +1,34 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/Auth/userSlice";
 
-interface FormProps {
-  setUser: (name: string) => void;
-}
-
-export const Form: FC<FormProps> = ({ setUser }) => {
-  //тут создаем стейт для имени и пароля, чтобы при вводе данных в инпут они сохранялись
-  const [userName, setUserName] = useState("");
+export const Form = () => {
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  // создаем футкцию для записи имени пользователя и в нее прокидываем наш пропс который прописан в interface
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    setUser(userName);
+    dispatch(
+      login({
+        name: name,
+        password: password,
+      })
+    );
   };
 
   return (
     <Root>
       <Input
         placeholder="Ваше имя"
-        // в value передаем наш стейт
-        value={userName}
-        // в onChange мы следим за изменением инпута и при каждом изменении меняем стейт через setUserName
-        onChange={(e) => {
-          setUserName(e.target.value);
-        }}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
       <Input
         placeholder="Пароль"
         value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <Button onClick={handleClick}>Войти</Button>
     </Root>

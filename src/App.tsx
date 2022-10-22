@@ -3,15 +3,15 @@ import styled from "styled-components";
 import { Card, Form } from "./components";
 import { BsSearch } from "react-icons/bs";
 import photo from "./assets/img/photo.jpg";
+import { useSelector } from "react-redux";
+import { RootState } from "./store/store";
 
 function App() {
-  // создаем еще один стейт так как данные мы не можем напрямую передать в
-  // App потому что этот компонент находится выше и через функцию setUser будем их записывать через наш пропс из формы
-  const [user, setUser] = useState("");
+  const userName = useSelector((state: RootState) => state.name.userName);
 
   return (
     <Root>
-      {user ? (
+      {userName ? (
         <Container>
           <List>
             <SearchBlock>
@@ -29,7 +29,7 @@ function App() {
           <Chat>
             <Header>
               <Image src={photo} />
-              <Name>{user}</Name>
+              <Name>Глеб</Name>
             </Header>
             <ChatContent>
               <Messages>
@@ -54,8 +54,7 @@ function App() {
           </Chat>
         </Container>
       ) : (
-        // тут вызываем наш пропс из формы и передаем в него setUser
-        <Form setUser={setUser} />
+        <Form />
       )}
     </Root>
   );
