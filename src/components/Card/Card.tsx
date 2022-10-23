@@ -1,17 +1,19 @@
+import React, { FC } from "react";
 import styled from "styled-components";
-import Image from "../../Image";
 
-export const Card = () => {
+interface CardProps {
+  imageUrl?: string;
+  name: string;
+  lastMsg: string;
+}
+
+export const Card: FC<CardProps> = ({ imageUrl, name, lastMsg }) => {
   return (
     <CardContainer>
-      <Image
-        imageUrl={
-          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/599e3b95636919.5eb96c0445ea7.jpg"
-        }
-      />
+      <Image src={imageUrl} />
       <CardContent>
-        <CardTitle>Глеб Шарипов</CardTitle>
-        <CardLastMsg>В госдуму внесли законоп...</CardLastMsg>
+        <CardTitle>{name}</CardTitle>
+        <CardLastMsg>{lastMsg}</CardLastMsg>
       </CardContent>
     </CardContainer>
   );
@@ -19,13 +21,19 @@ export const Card = () => {
 
 const CardContainer = styled.div`
   display: flex;
-
   cursor: pointer;
   transition: 0.2s ease-in-out;
   &:hover {
     background-color: #2f2f2f;
     border-radius: 15px;
   }
+`;
+
+const Image = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 10px;
 `;
 
 const CardContent = styled.div`

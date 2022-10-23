@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Card } from "./components";
 import { BsSearch } from "react-icons/bs";
-import Image from "./Image";
+import photo from "./assets/img/photo.jpg";
 
 function App() {
   return (
@@ -14,20 +14,16 @@ function App() {
             <BsSearchStyled />
           </SearchBlock>
           <Cards>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
           </Cards>
         </List>
 
         <Chat>
           <Header>
-            <Image
-              imageUrl={
-                "https://mir-s3-cdn-cf.behance.net/project_modules/disp/599e3b95636919.5eb96c0445ea7.jpg"
-              }
-            />
+            <Image src={photo} />
             <Name>Глеб Шарипов</Name>
           </Header>
           <ChatContent>
@@ -61,6 +57,13 @@ const Root = styled.div`
 
   overflow: hidden;
   height: 100vh;
+`;
+
+const Image = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 10px;
 `;
 
 const Container = styled.div`
