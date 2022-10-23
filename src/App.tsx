@@ -1,60 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Card } from "./components";
+import { Card, Form } from "./components";
 import { BsSearch } from "react-icons/bs";
 import photo from "./assets/img/photo.jpg";
 
 function App() {
+  // создаем еще один стейт так как данные мы не можем напрямую передать в
+  // компонент который находится выше и через функцию setUser будем их записывать через наш пропс из формы
+  const [user, setUser] = useState("");
+
   return (
     <Root>
-      <Container>
-        <List>
-          <SearchBlock>
-            <Input placeholder="Search" />
-            <BsSearchStyled />
-          </SearchBlock>
-          <Cards>
-            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-            <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-          </Cards>
-        </List>
+      {user ? (
+        <Container>
+          <List>
+            <SearchBlock>
+              <Input placeholder="Search" />
+              <BsSearchStyled />
+            </SearchBlock>
+            <Cards>
+              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+            </Cards>
+          </List>
 
-        <Chat>
-          <Header>
-            <Image src={photo} />
-            <Name>Глеб Шарипов</Name>
-          </Header>
-          <ChatContent>
-            <Messages>
-              <Message1>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
-                iure eum voluptates, magnam deserunt fugit mollitia, ipsam vero
-                voluptatum accusamus laboriosam eos ut totam ipsum perspiciatis.
-                Suscipit similique vitae possimus?
-              </Message1>
-              <Message2>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
-                iure eum voluptates, magnam deserunt fugit mollitia, ipsam vero
-                voluptatum accusamus laboriosam eos ut totam ipsum perspiciatis.
-                Suscipit similique vitae possimus?
-              </Message2>
-            </Messages>
-            <SendBlock>
-              <InputText placeholder="Message" />
-              <ButtonSend />
-            </SendBlock>
-          </ChatContent>
-        </Chat>
-      </Container>
+          <Chat>
+            <Header>
+              <Image src={photo} />
+              <Name>{user}</Name>
+            </Header>
+            <ChatContent>
+              <Messages>
+                <Message1>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
+                  iure eum voluptates, magnam deserunt fugit mollitia, ipsam
+                  vero voluptatum accusamus laboriosam eos ut totam ipsum
+                  perspiciatis. Suscipit similique vitae possimus?
+                </Message1>
+                <Message2>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
+                  iure eum voluptates, magnam deserunt fugit mollitia, ipsam
+                  vero voluptatum accusamus laboriosam eos ut totam ipsum
+                  perspiciatis. Suscipit similique vitae possimus?
+                </Message2>
+              </Messages>
+              <SendBlock>
+                <InputText placeholder="Message" />
+                <ButtonSend />
+              </SendBlock>
+            </ChatContent>
+          </Chat>
+        </Container>
+      ) : (
+        // тут вызываем наш пропс из формы и передаем в него setUser
+        <Form setUser={setUser} />
+      )}
     </Root>
   );
 }
 
 const Root = styled.div`
   width: 100%;
-
   overflow: hidden;
   height: 100vh;
 `;
