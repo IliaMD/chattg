@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { Card, Form } from "./components";
 import { BsSearch } from "react-icons/bs";
@@ -8,6 +8,13 @@ import { RootState } from "./store/store";
 
 function App() {
   const userName = useSelector((state: RootState) => state.name.userName);
+  const [searchValue, setSearchValue] = useState("");
+
+  const Contacts = [
+    { name: "Глеб", lastMsg: "Hello" },
+    { name: "Игорь", lastMsg: "Bye" },
+    { name: "Ваня", lastMsg: "Hi" },
+  ];
 
   return (
     <Root>
@@ -15,14 +22,23 @@ function App() {
         <Container>
           <List>
             <SearchBlock>
-              <Input placeholder="Search" />
+              <Input
+                placeholder="Search"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
               <BsSearchStyled />
             </SearchBlock>
             <Cards>
-              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
-              <Card imageUrl={photo} name="Глеб" lastMsg="Hello" />
+              {Contacts.filter((item) =>
+                item.name.toLowerCase().includes(searchValue.toLowerCase())
+              ).map((card) => (
+                <Card
+                  imageUrl={photo}
+                  name={card.name}
+                  lastMsg={card.lastMsg}
+                />
+              ))}
             </Cards>
           </List>
 
