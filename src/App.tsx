@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { Card, Form } from "./components";
 import { BsSearch } from "react-icons/bs";
+import { FiArrowUpRight } from "react-icons/fi";
 import photo from "./assets/img/photo.jpg";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
@@ -32,8 +33,9 @@ function App() {
             <Cards>
               {Contacts.filter((item) =>
                 item.name.toLowerCase().includes(searchValue.toLowerCase())
-              ).map((card) => (
+              ).map((card, index) => (
                 <Card
+                  key={index}
                   imageUrl={photo}
                   name={card.name}
                   lastMsg={card.lastMsg}
@@ -64,7 +66,9 @@ function App() {
               </Messages>
               <SendBlock>
                 <InputText placeholder="Message" />
-                <ButtonSend />
+                <ButtonSend>
+                  <FiArrowUpRightStyled />
+                </ButtonSend>
               </SendBlock>
             </ChatContent>
           </Chat>
@@ -173,6 +177,8 @@ const SendBlock = styled.div`
   max-width: 800px;
   width: 100%;
   justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
 `;
 
 const Message1 = styled.p`
@@ -207,6 +213,20 @@ const ButtonSend = styled.button`
   width: 40px;
   height: 40px;
   cursor: pointer;
+
+  &:hover {
+  }
+`;
+
+const FiArrowUpRightStyled = styled(FiArrowUpRight)`
+  height: 25px;
+  width: 25px;
+  padding-top: 3px;
+  transition: transform 0.15s ease-in-out;
+
+  &:hover {
+    transform: translate(3px, -3px);
+  }
 `;
 
 export default App;
